@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #4f46e5;
+  --color-primary-hover: #4338ca;
+  --color-glass: rgba(0, 0, 0, 0.03);
+  --color-glass-border: rgba(0, 0, 0, 0.08);
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+}
+
+:root {
+  --foreground-rgb: 10, 10, 10;
+  --background-start-rgb: 250, 250, 250;
+  --background-end-rgb: 255, 255, 255;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom,
+      rgb(var(--background-start-rgb)),
+      rgb(var(--background-end-rgb))) white;
+  min-height: 100vh;
+}
+
+/* Base Components/Utilities */
+.premium-btn {
+  @apply px-6 py-3 rounded-xl font-medium text-white transition-all duration-300 transform active:scale-95;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+}
+
+.premium-btn:hover {
+  @apply shadow-lg shadow-indigo-500/20;
+  filter: brightness(1.1);
+}
+
+.premium-input {
+  @apply w-full bg-black/5 border border-black/10 rounded-xl py-3 outline-none focus:border-indigo-500/50 transition-all text-black;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* html5-qrcode overrides - Professional/White-label look */
+#reader__dashboard_section_csr button {
+  @apply px-4 py-2 rounded-xl font-black text-white transition-all duration-300 transform active:scale-95 text-[10px] uppercase tracking-widest mb-4;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
+  border: none !important;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2) !important;
+}
+
+#reader__dashboard_section_csr span {
+  @apply text-black/40 text-[9px] font-black uppercase tracking-widest;
+  color: rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Hide library's unprofessional placeholder image and info icon */
+#reader img[alt="Camera"],
+#reader img[src*="camera"],
+#reader img[src*="info"],
+#reader__status_span,
+#reader__dashboard_section_csr div:first-child img {
+  display: none !important;
+}
+
+#reader {
+  border: none !important;
+  background: transparent !important;
+}
+
+#reader video {
+  @apply rounded-[2rem];
+  object-fit: cover !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+#reader__camera_selection {
+  @apply bg-white border border-black/5 rounded-lg text-[10px] font-bold p-1 outline-none mb-2;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
