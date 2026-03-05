@@ -10,6 +10,15 @@ const { seedAdmin } = require('./utils/seeder');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+//pingpong
+app.get('/ping', (req, res) => {
+  res.status(200).json({
+    message: 'pong',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime()  // seconds server has been running
+  });
+});
+
 // Validate required env vars at startup
 const requiredEnvVars = ['HMAC_SECRET', 'JWT_SECRET', 'MONGODB_URI'];
 for (const envVar of requiredEnvVars) {
