@@ -12,10 +12,32 @@ const PORT = process.env.PORT || 3001;
 
 //pingpong
 app.get('/ping', (req, res) => {
+  const start = Date.now();
+
   res.status(200).json({
     message: 'pong',
     timestamp: new Date().toISOString(),
-    uptime: process.uptime()  // seconds server has been running
+    uptime: process.uptime(),
+
+    // ✅ Response time (ms)
+    responseTime: `${Date.now() - start}ms`,
+
+    // ✅ Server environment
+    environment: process.env.NODE_ENV || 'development',
+
+    // ✅ Memory usage
+    memory: {
+      heapUsed: `${Math.round(process.memoryUsage().heapUsed / 1024 / 1024)}MB`,
+      heapTotal: `${Math.round(process.memoryUsage().heapTotal / 1024 / 1024)}MB`,
+      rss: `${Math.round(process.memoryUsage().rss / 1024 / 1024)}MB`,
+    },
+
+    // ✅ Node & platform info
+    nodeVersion: process.version,
+    platform: process.platform,
+
+    // ✅ CPU usage (since process start)
+    cpuUsage: process.cpuUsage(),
   });
 });
 
