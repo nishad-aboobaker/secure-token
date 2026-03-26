@@ -12,31 +12,27 @@ const PORT = process.env.PORT || 3001;
 
 //pingpong
 app.get('/ping', (req, res) => {
-  const start = Date.now();
+  const start = process.hrtime.bigint();
+
+  const dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
+
+  const end = process.hrtime.bigint();
+  const responseTimeMs = Number(end - start) / 1_000_000;
 
   res.status(200).json({
     message: 'pong',
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
-
-    // ✅ Response time (ms)
-    responseTime: `${Date.now() - start}ms`,
-
-    // ✅ Server environment
+    responseTime: `${responseTimeMs.toFixed(3)}ms`,
     environment: process.env.NODE_ENV || 'development',
-
-    // ✅ Memory usage
+    database: dbStatus,
     memory: {
       heapUsed: `${Math.round(process.memoryUsage().heapUsed / 1024 / 1024)}MB`,
       heapTotal: `${Math.round(process.memoryUsage().heapTotal / 1024 / 1024)}MB`,
       rss: `${Math.round(process.memoryUsage().rss / 1024 / 1024)}MB`,
     },
-
-    // ✅ Node & platform info
     nodeVersion: process.version,
     platform: process.platform,
-
-    // ✅ CPU usage (since process start)
     cpuUsage: process.cpuUsage(),
   });
 });
